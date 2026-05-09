@@ -3,12 +3,6 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# Remove legacy reference task if present (left over from prior My Study setup)
-if (Get-ScheduledTask -TaskName 'MyStudyAutoPush' -ErrorAction SilentlyContinue) {
-    Unregister-ScheduledTask -TaskName 'MyStudyAutoPush' -Confirm:$false
-    Write-Host "Removed legacy scheduled task 'MyStudyAutoPush'."
-}
-
 $autoPushPath = Join-Path $PSScriptRoot 'auto_push.ps1'
 
 $action    = New-ScheduledTaskAction -Execute 'powershell.exe' `
