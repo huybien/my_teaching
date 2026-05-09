@@ -5,7 +5,7 @@ $task = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
 if (-not $task) {
     Write-Host "Task '$taskName' is NOT registered." -ForegroundColor Red
     Write-Host "Run register_task.bat (as admin) to register it."
-    Read-Host 'Press Enter to close' | Out-Null
+    Read-Host 'Press Enter to close...' | Out-Null
     exit 1
 }
 
@@ -30,4 +30,4 @@ if (Test-Path -LiteralPath $logFile) {
 }
 
 Write-Host ''
-Read-Host 'Press Enter to close' | Out-Null
+Read-Host 'Press Enter to close...' | Out-Null

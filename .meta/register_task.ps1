@@ -19,5 +19,4 @@ Register-ScheduledTask -TaskName 'MyTeachingAutoPush' `
 Write-Host "Registered scheduled task 'MyTeachingAutoPush' (runs every 2h as SYSTEM)."
 Write-Host "Auto-push script: $autoPushPath"
 Write-Host ""
-Write-Host "Press Enter to close."
-Read-Host | Out-Null
+Read-Host 'Press Enter to close...' | Out-Null
