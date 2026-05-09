@@ -1,0 +1,4 @@
+C:\Program Files\Git\bin\git.exe
+C:\Program Files\Git\usr\bin\ssh.exe
+C:\ProgramData\miniconda3\condabin\conda.bat
+

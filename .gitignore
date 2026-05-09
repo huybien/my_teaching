@@ -1,12 +1,9 @@
 # Sensitive credentials — never commit
-.auto_push/github_info.txt
+.meta/github_info.txt
 
 # Auto-push runtime files
-.auto_push/auto_push.log
-.auto_push/auto_push.lock
-
-# Reference scripts from another project — not tracked
-.meta/
+.meta/auto_push.log
+.meta/auto_push.lock
 
 # Office temp/lock files
 ~$*
