@@ -1,0 +1,13 @@
+# Sensitive credentials — never commit
+.meta/github_info.txt
+
+# Auto-push runtime files
+.meta/auto_push.log
+.meta/auto_push.lock
+
+# Office temp/lock files
+~$*
+
+# OS artifacts
+.DS_Store
+Thumbs.db
