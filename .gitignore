@@ -11,3 +11,6 @@
 # OS artifacts
 .DS_Store
 Thumbs.db
+
+# Personal website repo (managed separately)
+nhbien.github.io/

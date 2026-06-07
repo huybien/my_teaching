@@ -50,10 +50,19 @@ try {
             Where-Object { $_.Name -notlike '~$*' } |
             ForEach-Object { ($_.FullName.Substring($base.Length + 1)) -replace '\\','/' }
     }
-    $trackedPaths = @(& $git @gitPre ls-files -- '*.pptx')
-    $allPaths = @(@($diskPaths) + $trackedPaths) | Sort-Object -Unique
+
+    # Each course folder's "Quizzes" directory, staged recursively (all files and subfolders).
+    $quizzesPaths = foreach ($f in $folders) {
+        $qz = Join-Path (Join-Path $base $f) 'Quizzes'
+        if (Test-Path -LiteralPath $qz -PathType Container) {
+            ($qz.Substring($base.Length + 1)) -replace '\\','/'
+        }
+    }
+
+    $trackedPaths = @(& $git @gitPre ls-files -- '*.pptx' '*/Quizzes/*')
+    $allPaths = @(@($diskPaths) + @($quizzesPaths) + $trackedPaths) | Sort-Object -Unique
     if (-not $allPaths -or $allPaths.Count -eq 0) {
-        Write-Log 'no pptx paths to consider'; exit 0
+        Write-Log 'no paths to consider'; exit 0
     }
 
     $tmp = [System.IO.Path]::GetTempFileName()
@@ -68,7 +77,7 @@ try {
 
     $changedFiles = @(& $git @gitPre diff --cached --name-only)
     $count = $changedFiles.Count
-    $msg = "Auto-update pptx $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+    $msg = "Auto-update pptx + quizzes $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
     & $git @gitPre commit -m $msg | Out-Null
     if ($LASTEXITCODE -ne 0) {
         Write-Log "error: commit failed (exit $LASTEXITCODE)"; exit 1
